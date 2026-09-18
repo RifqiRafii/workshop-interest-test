@@ -1,0 +1,22 @@
+<%- include('../partials/head', { title: 'Pertanyaan Tes' }) %>
+<section class="question-wrap">
+  <div class="question-top"><div><p class="eyebrow">Langkah 2 dari 2</p><h1>Seberapa sesuai denganmu?</h1></div><span class="question-count"><%= questions.length %> pernyataan</span></div>
+  <% if (typeof error !== 'undefined' && error) { %><div class="alert alert-error"><%= error %></div><% } %>
+  <form method="post" action="/submit" id="question-form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <% questions.forEach((question, index) => { %>
+      <fieldset class="question-card">
+        <legend><span><%= String(index + 1).padStart(2, '0') %></span><%= question.teks %></legend>
+        <div class="scale-options">
+          <label><input type="radio" name="question_<%= question.id %>" value="-2" required><span><b>Sangat tidak setuju</b><small>-2</small></span></label>
+          <label><input type="radio" name="question_<%= question.id %>" value="-1"><span><b>Tidak setuju</b><small>-1</small></span></label>
+          <label><input type="radio" name="question_<%= question.id %>" value="0"><span><b>Netral</b><small>0</small></span></label>
+          <label><input type="radio" name="question_<%= question.id %>" value="1"><span><b>Setuju</b><small>+1</small></span></label>
+          <label><input type="radio" name="question_<%= question.id %>" value="2"><span><b>Sangat setuju</b><small>+2</small></span></label>
+        </div>
+      </fieldset>
+    <% }) %>
+    <button class="button button-primary submit-button" type="submit">Lihat Hasil <span aria-hidden="true">→</span></button>
+  </form>
+</section>
+<%- include('../partials/foot') %>

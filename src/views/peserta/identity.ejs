@@ -1,0 +1,14 @@
+<%- include('../partials/head', { title: 'Data Diri' }) %>
+<section class="form-wrap narrow">
+  <p class="eyebrow">Langkah 1 dari 2</p>
+  <h1>Kenalan dulu.</h1>
+  <p class="muted">Isi data berikut sebelum menjawab pertanyaan.</p>
+  <% if (errors.length) { %><div class="alert alert-error"><%= errors[0].msg %></div><% } %>
+  <form method="post" action="/mulai" class="stack-form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label>Nama lengkap<input name="nama" value="<%= values.nama || '' %>" maxlength="100" required autofocus></label>
+    <label>Program studi<input name="programStudi" value="<%= values.programStudi || '' %>" maxlength="100" required></label>
+    <button class="button button-primary" type="submit">Lanjut ke Pertanyaan <span aria-hidden="true">→</span></button>
+  </form>
+</section>
+<%- include('../partials/foot') %>

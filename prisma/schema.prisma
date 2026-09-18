@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Participant {
+  id           Int              @id @default(autoincrement())
+  nama         String
+  programStudi String
+  createdAt    DateTime         @default(now())
+  answers      Answer[]
+  hasil        HasilRingkasan?
+}
+
+model Question {
+  id       Int      @id @default(autoincrement())
+  teks     String
+  kategori String
+  urutan   Int      @unique
+  answers  Answer[]
+}
+
+model Answer {
+  id            Int         @id @default(autoincrement())
+  skor          Int
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  participantId Int
+  question     Question    @relation(fields: [questionId], references: [id], onDelete: Restrict)
+  questionId   Int
+
+  @@unique([participantId, questionId])
+}
+
+model HasilRingkasan {
+  id              Int         @id @default(autoincrement())
+  skorAlgoritma   Int
+  skorWebsite     Int
+  skorUiux        Int
+  kategoriDominan String
+  createdAt       DateTime    @default(now())
+  participant     Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  participantId   Int          @unique
+}
+
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}

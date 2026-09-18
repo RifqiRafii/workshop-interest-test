@@ -1,0 +1,10 @@
+<%- include('../partials/head', { title: 'Hasil Tes' }) %>
+<section class="result-header"><p class="eyebrow">Hasil tes untuk <%= participant.nama %></p><h1>Minatmu paling condong ke<br><strong><%= result.dominantLabel %></strong></h1><% if (result.dominantCategories.length > 1) { %><p class="lead">Skor beberapa bidang sama kuat. Kamu punya minat yang seimbang di bidang-bidang tersebut.</p><% } else { %><p class="lead">Gunakan hasil ini sebagai petunjuk awal untuk memilih kelas workshop.</p><% } %></section>
+<section class="score-grid">
+  <% [['ALGORITMA', result.scores.ALGORITMA, 'score-blue'], ['WEBSITE', result.scores.WEBSITE, 'score-yellow'], ['UIUX', result.scores.UIUX, 'score-navy']].forEach(([key, score, className]) => { %>
+    <article class="score-card <%= className %>"><div><span><%= categoryLabels[key] %></span><strong><%= score %></strong></div><div class="bar"><i style="width: <%= Math.max(4, ((score + maxScore) / (maxScore * 2)) * 100) %>%"></i></div></article>
+  <% }) %>
+</section>
+<section class="result-note"><span class="note-icon">i</span><div><h2>Tentang hasilmu</h2><p><% if (result.dominantCategories.length > 1) { %>Kamu menunjukkan ketertarikan yang sama kuat pada <%= result.dominantCategories.map((category) => categoryLabels[category]).join(' dan ') %>. Coba eksplorasi keduanya untuk menemukan pengalaman belajar yang paling menyenangkan.<% } else if (result.dominantCategories[0] === 'ALGORITMA') { %>Kamu menikmati logika, pemecahan masalah, dan cara kerja program. Kelas Algoritma & Pemrograman Dasar bisa menjadi ruang yang tepat untuk mengasah cara berpikirmu.<% } else if (result.dominantCategories[0] === 'WEBSITE') { %>Kamu tertarik mengubah ide menjadi halaman web yang bisa digunakan. Kelas Website Dasar akan membantumu mengenal fondasi tampilan dan interaksi web.<% } else { %>Kamu peka terhadap kebutuhan pengguna dan detail visual. Kelas UI/UX bisa menjadi tempat untuk mengembangkan kemampuan merancang pengalaman digital yang nyaman.<% } %></p></div></section>
+<a class="text-link" href="/">Kembali ke halaman awal</a>
+<%- include('../partials/foot') %>

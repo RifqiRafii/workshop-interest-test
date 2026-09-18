@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title || 'ITC - Minatku' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/">
+    <img src="/images/logo5.png" alt="Logo UKMFT ITC">
+    <span>ITC<br><strong>MINATKU</strong></span>
+  </a>
+  <% if (typeof adminHeader !== 'undefined' && adminHeader) { %><span class="header-label">Panel Admin</span><% } %>
+</header>
+<main class="page-shell">
